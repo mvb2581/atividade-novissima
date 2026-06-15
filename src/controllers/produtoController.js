@@ -60,7 +60,7 @@ const produtoController = {
         try {
             const id = Number(req.params.id);
             const { idCategoria, nome, descricao, preco, quantidadeEstoque } = req.body;
-            console.log(id, idCategoriam, nome, descricao, preco, quantidadeEstoque);
+            console.log(id, idCategoria, nome, descricao, preco, quantidadeEstoque);
             const imagem = req.file ? req.file.path.replace(/\\/g, '/').split('uploads/')[1] : null;
  
             if (!id || id <= 0) {
