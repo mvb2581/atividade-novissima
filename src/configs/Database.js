@@ -57,6 +57,13 @@ export async function initializeDatabase() {
                 cpf CHAR(11) NOT NULL UNIQUE,
                 dataCad DATETIME NULL DEFAULT CURRENT_TIMESTAMP
             );`);
+            await tempConnection.query(`CREATE TABLE IF NOT EXISTS categorias (
+                Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                Nome VARCHAR(45) NOT NULL,
+                Descricao VARCHAR(255) NULL,
+                DataCad DATETIME NULL DEFAULT CURRENT_TIMESTAMP
+
+            );`);
                 await tempConnection.query(`CREATE TABLE IF NOT EXISTS produtos (
                 id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
                 IdCategoria INT NOT NULL,
@@ -67,13 +74,6 @@ export async function initializeDatabase() {
                 QuantidadeEstoque INT NOT NULL DEFAULT 0,
                 DataCad DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (IdCategoria) REFERENCES categorias(id)
-            );`);
-                await tempConnection.query(`CREATE TABLE IF NOT EXISTS categorias (
-                Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                Nome VARCHAR(45) NOT NULL,
-                Descricao VARCHAR(255) NULL,
-                DataCad DATETIME NULL DEFAULT CURRENT_TIMESTAMP
-
             );`);
 
             await tempConnection.query(`CREATE TABLE IF NOT EXISTS pedidos (
