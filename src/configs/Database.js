@@ -69,8 +69,8 @@ export async function initializeDatabase() {
                 IdCategoria INT NOT NULL,
                 nome VARCHAR(150) NOT NULL,
                 Descricao VARCHAR(255) NULL,
-                preco DECIMAL(10,2) NOT NULL,
-                imagem VARCHAR(255) NULL,
+                valor DECIMAL(10,2) NOT NULL,
+                caminhoImagem VARCHAR(255) NULL,
                 QuantidadeEstoque INT NOT NULL DEFAULT 0,
                 DataCad DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (IdCategoria) REFERENCES categorias(id)
@@ -92,7 +92,7 @@ export async function initializeDatabase() {
                 Quantidade INT NOT NULL,
                 ValorUnitario DECIMAL(10,2) NOT NULL,
                 Subtotal DECIMAL(10,2) GENERATED ALWAYS AS (Quantidade * ValorUnitario) STORED,
-                valor DECIMAL(10,2) NOT NULL,
+                Valor DECIMAL(10,2) NOT NULL,
                 FOREIGN KEY (IdPedido) REFERENCES pedidos(id),
                 FOREIGN KEY (IdProduto) REFERENCES produtos(id)
             );`);

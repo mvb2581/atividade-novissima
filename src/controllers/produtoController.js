@@ -20,6 +20,8 @@ const produtoController = {
  
             const produto = Produto.criar({ idCategoria, nome, descricao, preco, quantidadeEstoque }, imagem);
             const result = await produtoRepository.criar(produto);
+
+            
  
             res.status(201).json({ sucesso: true, mensagem: 'Produto criado com sucesso', dados: result });
         } catch (error) {

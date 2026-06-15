@@ -1,4 +1,7 @@
 export class Produto {
+
+    
+
     #id;
     #idCategoria;
     #nome;
@@ -6,6 +9,7 @@ export class Produto {
     #preco;
     #imagem;
     #quantidadeEstoque;
+    
 
     constructor(pIdCategoria, pNome, pDescricao, pPreco, pImagem, pQuantidadeEstoque, pId = null) {
         this.idCategoria = pIdCategoria;
