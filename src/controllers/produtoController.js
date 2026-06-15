@@ -60,6 +60,7 @@ const produtoController = {
         try {
             const id = Number(req.params.id);
             const { idCategoria, nome, descricao, preco, quantidadeEstoque } = req.body;
+            console.log(id, idCategoriam, nome, descricao, preco, quantidadeEstoque);
             const imagem = req.file ? req.file.path.replace(/\\/g, '/').split('uploads/')[1] : null;
  
             if (!id || id <= 0) {
@@ -89,6 +90,7 @@ const produtoController = {
  
             res.status(200).json({ sucesso: true, mensagem: 'Produto atualizado com sucesso', dados: result });
         } catch (error) {
+            
             console.log(error);
             res.status(500).json({ sucesso: false, mensagem: 'Erro ao atualizar produto', errorMessage: error.message });
         }
