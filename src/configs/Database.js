@@ -82,6 +82,18 @@ export async function initializeDatabase() {
             console.log("Coluna 'caminhoImagem' adicionada à tabela produtos.");
         }
 
+        const [colunaPreco] = await tempConnection.query(`SHOW COLUMNS FROM produtos LIKE 'preco'`);
+        if (colunaPreco.length === 0) {
+            const [colunaPrecoAntiga] = await tempConnection.query(`SHOW COLUMNS FROM produtos LIKE 'Preco'`);
+            if (colunaPrecoAntiga.length > 0) {
+                await tempConnection.query(`ALTER TABLE produtos CHANGE Preco preco DECIMAL(10,2) NOT NULL`);
+                console.log("Coluna 'Preco' renomeada para 'preco' na tabela produtos.");
+            } else {
+                await tempConnection.query(`ALTER TABLE produtos ADD COLUMN preco DECIMAL(10,2) NOT NULL DEFAULT 0`);
+                console.log("Coluna 'preco' adicionada à tabela produtos.");
+            }
+        }
+
             await tempConnection.query(`CREATE TABLE IF NOT EXISTS pedidos (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 IdCliente INT NOT NULL,
