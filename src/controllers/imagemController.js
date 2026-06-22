@@ -5,17 +5,16 @@ const imagemController = {
     obterImagem: (req, res) => {
         try {
             const { nomeArquivo } = req.params;
-            
-            // Sanitizar o nome do arquivo para evitar ataques de path traversal
-            const arquivoSeguro = path.basename(nomeArquivo);
-            const caminhoImagem = path.join(
-                path.resolve(process.cwd()),
-                'uploads',
-                'images',
-                arquivoSeguro
-            );
 
-            // Verificar se o arquivo existe
+            // Sanitizar o nome do arquivo
+            const arquivoSeguro = path.basename(nomeArquivo);
+
+            // Caminho relativo
+            const caminhoImagem = path.join('uploads', 'images', arquivoSeguro);
+
+            console.log(`Caminho da imagem solicitado: ${caminhoImagem}`);
+
+            // Verifica se o arquivo existe
             if (!fs.existsSync(caminhoImagem)) {
                 return res.status(404).json({
                     sucesso: false,
@@ -23,10 +22,14 @@ const imagemController = {
                 });
             }
 
-            // Enviar arquivo
-            res.sendFile(caminhoImagem);
+            // Envia o arquivo usando root
+            res.sendFile(arquivoSeguro, {
+                root: path.join(process.cwd(), 'uploads', 'images')
+            });
+
         } catch (error) {
             console.error('Erro ao buscar imagem:', error);
+
             res.status(500).json({
                 sucesso: false,
                 mensagem: 'Erro ao buscar imagem',
