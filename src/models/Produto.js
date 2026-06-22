@@ -1,7 +1,4 @@
 export class Produto {
-
-    
-
     #id;
     #idCategoria;
     #nome;

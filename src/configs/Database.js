@@ -13,7 +13,7 @@ class Database {
             database: process.env.DB_DATABASE,
             port: Number(process.env.DB_PORT),
             waitForConnections: true,
-            connectionLimit: 100,
+            connectionLimit: 3400,
             queueLimit: 0,
             ssl: { rejectUnauthorized: false }
         });

@@ -60,8 +60,8 @@ const produtoController = {
         try {
             const id = Number(req.params.id);
             const { idCategoria, nome, descricao, preco, quantidadeEstoque } = req.body;
-            console.log(id, idCategoriam, nome, descricao, preco, quantidadeEstoque);
             const imagem = req.file ? req.file.path.replace(/\\/g, '/').split('uploads/')[1] : null;
+            console.log(id, idCategoria, nome, descricao, preco, quantidadeEstoque);
  
             if (!id || id <= 0) {
                 return res.status(400).json({ sucesso: false, mensagem: 'ID inválido' });
