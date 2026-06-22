@@ -48,8 +48,8 @@ export async function initializeDatabase() {
 
         const dbName = process.env.DB_DATABASE || 'deploy';
 
-        await tempConnection.query("CREATE DATABASE IF NOT EXISTS `loja_ihs_3003`;");
-        await tempConnection.query("USE `loja_ihs_3003`;")
+        await tempConnection.query(`CREATE DATABASE IF NOT EXISTS \`${dbName}\`;`);
+        await tempConnection.query(`USE \`${dbName}\`;`)
 
             await tempConnection.query(`CREATE TABLE IF NOT EXISTS clientes (
                 id INT AUTO_INCREMENT PRIMARY KEY,
@@ -69,12 +69,18 @@ export async function initializeDatabase() {
                 IdCategoria INT NOT NULL,
                 nome VARCHAR(150) NOT NULL,
                 Descricao VARCHAR(255) NULL,
-                valor DECIMAL(10,2) NOT NULL,
+                preco DECIMAL(10,2) NOT NULL,
                 caminhoImagem VARCHAR(255) NULL,
                 QuantidadeEstoque INT NOT NULL DEFAULT 0,
                 DataCad DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (IdCategoria) REFERENCES categorias(id)
             );`);
+
+        const [colunas] = await tempConnection.query(`SHOW COLUMNS FROM produtos LIKE 'caminhoImagem'`);
+        if (colunas.length === 0) {
+            await tempConnection.query(`ALTER TABLE produtos ADD COLUMN caminhoImagem VARCHAR(255) NULL`);
+            console.log("Coluna 'caminhoImagem' adicionada à tabela produtos.");
+        }
 
             await tempConnection.query(`CREATE TABLE IF NOT EXISTS pedidos (
                 id INT AUTO_INCREMENT PRIMARY KEY,

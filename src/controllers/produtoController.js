@@ -60,9 +60,7 @@ const produtoController = {
         try {
             const id = Number(req.params.id);
             const { idCategoria, nome, descricao, preco, quantidadeEstoque } = req.body;
-            console.log(id, idCategoria, nome, descricao, preco, quantidadeEstoque);
             const imagem = req.file ? req.file.path.replace(/\\/g, '/').split('uploads/')[1] : null;
-            console.log(id, idCategoria, nome, descricao, preco, quantidadeEstoque);
  
             if (!id || id <= 0) {
                 return res.status(400).json({ sucesso: false, mensagem: 'ID inválido' });
@@ -74,7 +72,7 @@ const produtoController = {
  
             // Buscar produto atual para pegar a imagem antiga
             const produtoAtual = await produtoRepository.selecionarPorId(id);
-            let imagemAntiga = produtoAtual ? produtoAtual.imagem : null;
+            let imagemAntiga = produtoAtual ? produtoAtual.caminhoImagem : null;
  
             // Se veio uma nova imagem e existe uma imagem antiga, apaga a antiga
             if (imagem && imagemAntiga) {
@@ -86,8 +84,11 @@ const produtoController = {
                 });
             }
  
+
+            console.log('teste: ', imagem);
+            
             const produto = Produto.editar({ idCategoria, nome, descricao, preco, quantidadeEstoque }, imagem, id);
-            console.log(produto);
+            console.log(produto.imagem);
             const result = await produtoRepository.atualizar(produto);
  
             res.status(200).json({ sucesso: true, mensagem: 'Produto atualizado com sucesso', dados: result });

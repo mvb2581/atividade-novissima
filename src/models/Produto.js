@@ -73,6 +73,8 @@ export class Produto {
     }
 
     static editar(dados, imagem, id) {
+        console.log(imagem);
+        
         return new Produto(dados.idCategoria, dados.nome, dados.descricao, dados.preco, imagem, dados.quantidadeEstoque, id);
     }
 };
