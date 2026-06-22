@@ -4,7 +4,6 @@ const produtoRepository = {
     criar: async (produto) => {
         const sql = `INSERT INTO produtos (idCategoria, nome, descricao, valor, caminhoImagem, quantidadeEstoque) VALUES (?, ?, ?, ?, ?, ?)`;
         const values = [produto.idCategoria, produto.nome, produto.descricao, produto.preco, produto.caminhoImagem, produto.quantidadeEstoque];
-        
         const [rows] = await connection.execute(sql, values);
         return rows;
         

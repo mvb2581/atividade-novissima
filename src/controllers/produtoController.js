@@ -60,6 +60,7 @@ const produtoController = {
         try {
             const id = Number(req.params.id);
             const { idCategoria, nome, descricao, preco, quantidadeEstoque } = req.body;
+            console.log(id, idCategoria, nome, descricao, preco, quantidadeEstoque);
             const imagem = req.file ? req.file.path.replace(/\\/g, '/').split('uploads/')[1] : null;
             console.log(id, idCategoria, nome, descricao, preco, quantidadeEstoque);
  
@@ -86,6 +87,7 @@ const produtoController = {
             }
  
             const produto = Produto.editar({ idCategoria, nome, descricao, preco, quantidadeEstoque }, imagem, id);
+            console.log(produto);
             const result = await produtoRepository.atualizar(produto);
  
             res.status(200).json({ sucesso: true, mensagem: 'Produto atualizado com sucesso', dados: result });
